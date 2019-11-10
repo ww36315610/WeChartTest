@@ -9,6 +9,19 @@ import org.openqa.selenium.By;
 public class Po_ContactPage extends BasicObject {
 
     /**
+     * 根据按钮名称选择点击的功能
+     * 1.添加成员
+     * 2.批量导入/导出
+     * 3.设置所在部门
+     * 4.删除
+     * 5.微信邀请
+     */
+    public void clickButton(String buttonName) {
+        findElement(By.linkText(buttonName)).click();
+        waitDriverWait(null,10,"yin");
+    }
+
+    /**
      * 增加联系人
      *
      * @param username
@@ -18,8 +31,8 @@ public class Po_ContactPage extends BasicObject {
      */
     public Po_ContactPage add(String username, String id, String phone) {
         findElement(By.name("username")).sendKeys(username);
-        findElement(By.name("id")).sendKeys(id);
-        findElement(By.name("phone")).sendKeys(phone);
+        findElement(By.name("acctid")).sendKeys(id);
+        findElement(By.name("mobile")).sendKeys(phone);
         return this;
     }
 

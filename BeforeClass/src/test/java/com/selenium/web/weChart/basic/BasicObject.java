@@ -19,12 +19,27 @@ import java.util.concurrent.TimeUnit;
  */
 public class BasicObject {
 
-    //TODO：参数获取请求地址
-    protected static String url = "https://work.weixin.qq.com/";
+    //请求地址
+    protected static String URL;
+    //定义driver
+    protected static WebDriver driver;
 
-    //TODO:外部传入选择不同的driver
-    //    public String chooseDriver = System.getProperty("driver");
-    protected static WebDriver driver = (ChromeDriver) MakeDriver.getDriverByParam("chrome");
+    //Cookie信息
+    protected static String refid;
+    protected static String sid;
+
+    /**
+     * 静态代码块赋值
+     * TODO：外部配置文件参数化
+     */
+    static {
+        URL = "https://work.weixin.qq.com/";
+        driver = (ChromeDriver) MakeDriver.getDriverByParam("chrome");
+        //liunx 启动命令获取driver  driver = System.getProperty("driver");
+        refid = "393314008821495";
+        sid = "JvZOmWG4Uap9Glla7YBqRtfke0PpaeS2T1bEke1Vd451l8lkbxhzWUnaUwtYe5wU";
+    }
+
 
     /**
      * 统一获取对象
@@ -32,6 +47,7 @@ public class BasicObject {
      * @return
      */
     public static WebElement findElement(By by) {
+        System.out.println("----------" + driver);
         return driver.findElement(by);
     }
 
@@ -41,25 +57,30 @@ public class BasicObject {
      *
      * @return
      */
-    public static void waitDriverWait(By by, int timeout) {
-        if (timeout == 0) {
+    public static void waitDriverWait(By by, int timeout, String type) {
+        if ("yin".equals(type)) {
             // 隐式等待
-            driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        } else {
+            driver.manage().timeouts().implicitlyWait(timeout, TimeUnit.SECONDS);
+        } else if ("xian".equals(type)) {
             //显示等待
             //等待元素加载到dom中
-            //new WebDriverWait(driver,timeout).until(ExpectedConditions);
+//            new WebDriverWait(driver,timeout).until(ExpectedConditions.va);
             //等待"按钮"可以被点击
             new WebDriverWait(driver, timeout).until(ExpectedConditions.elementToBeClickable(by));
-
+        } else {
+            try {
+                //强制sleep
+                Thread.sleep(timeout);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
-
     }
+
 
     /**
      * 动态设置窗口的大小
      */
-
     public static void makeWindowSize(int width, int heigth, String max) {
         if (null != max || max.equals("max")) {
             driver.manage().window().maximize();
