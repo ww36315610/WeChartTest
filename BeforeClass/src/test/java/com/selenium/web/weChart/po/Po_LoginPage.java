@@ -21,7 +21,7 @@ public class Po_LoginPage extends BasicObject {
         makeWindowSize(0, 0, "max");
 
         //点击登录按钮
-        findElement(By.linkText("企业登录")).click();
+        findElement(By.linkText("企业登录"),1000).click();
         System.out.println("cookie:::" + driver.manage().getCookies());
         driver.manage().addCookie(new Cookie("wwrtx.refid", refid));
         driver.manage().addCookie(new Cookie("wwrtx.sid", sid));

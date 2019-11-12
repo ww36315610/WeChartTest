@@ -27,7 +27,7 @@ public class AgentPage extends BasicObject {
 
     public void testClick() {
         map.forEach((k, v) -> {
-            findElement(By.xpath(v.toString())).click();
+            findElement(By.xpath(v.toString()),500).click();
             try {
                 Thread.sleep(2000);
             } catch (Exception e) {
@@ -49,7 +49,9 @@ public class AgentPage extends BasicObject {
      * 测试结束，推出浏览器
      */
     public void tearDown() {
+        System.out.println("--------正在关闭浏览器……--------");
         driver.quit();
+        System.out.println("--------浏览器正常关闭……--------");
     }
 
 
@@ -59,7 +61,7 @@ public class AgentPage extends BasicObject {
      * @return
      */
     public Po_HomePage getHomePage() {
-        findElement(By.xpath(map.get("首页").toString())).click();
+        findElement(By.xpath(map.get("首页").toString()),200).click();
         return new Po_HomePage();
     }
 
@@ -69,7 +71,7 @@ public class AgentPage extends BasicObject {
      * @return
      */
     public Po_ContactPage getContactPage() {
-        findElement(By.xpath(map.get("通讯录").toString())).click();
+        findElement(By.xpath(map.get("通讯录").toString()),200).click();
         return new Po_ContactPage();
     }
 
@@ -79,7 +81,7 @@ public class AgentPage extends BasicObject {
      * @return
      */
     public Po_Application geApplication() {
-        findElement(By.xpath(map.get("应用管理").toString())).click();
+        findElement(By.xpath(map.get("应用管理").toString()),200).click();
         return new Po_Application();
     }
 
@@ -89,7 +91,7 @@ public class AgentPage extends BasicObject {
      * @return
      */
     public Po_Customer getCustomer() {
-        findElement(By.xpath(map.get("客户联系").toString())).click();
+        findElement(By.xpath(map.get("客户联系").toString()),200).click();
         return new Po_Customer();
     }
 
@@ -99,7 +101,7 @@ public class AgentPage extends BasicObject {
      * @return
      */
     public Po_Management getManagement() {
-        findElement(By.xpath(map.get("管理工具").toString())).click();
+        findElement(By.xpath(map.get("管理工具").toString()),200).click();
         return new Po_Management();
     }
 
@@ -109,7 +111,7 @@ public class AgentPage extends BasicObject {
      * @return
      */
     public Po_MyBusiness getMyBusiness() {
-        findElement(By.xpath(map.get("我的企业").toString())).click();
+        findElement(By.xpath(map.get("我的企业").toString()),200).click();
         return new Po_MyBusiness();
     }
 }

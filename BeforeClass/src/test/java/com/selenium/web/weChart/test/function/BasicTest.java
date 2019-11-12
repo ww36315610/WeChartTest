@@ -27,7 +27,7 @@ public class BasicTest {
     @AfterClass
     public static void tearDown() throws Exception {
         System.out.println("--------web自动化测试正在结束--------");
-        Thread.sleep(5000);
+        Thread.sleep(10000);
         agentPage.tearDown();
     }
 }

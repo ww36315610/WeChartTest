@@ -37,7 +37,8 @@ public class BasicObject {
         driver = (ChromeDriver) MakeDriver.getDriverByParam("chrome");
         //liunx 启动命令获取driver  driver = System.getProperty("driver");
         refid = "393314008821495";
-        sid = "JvZOmWG4Uap9Glla7YBqRtfke0PpaeS2T1bEke1Vd451l8lkbxhzWUnaUwtYe5wU";
+        sid = "JvZOmWG4Uap9Glla7YBqRsV4onPiN_t9O_ITGF0BAAcGRa_QREJZD_QZZDNPc3NP";
+
     }
 
 
@@ -46,8 +47,16 @@ public class BasicObject {
      *
      * @return
      */
+    public static WebElement findElement(By by, int timout) {
+        //添加等待时间
+        waitDriverWait(by, timout, null);
+        return driver.findElement(by);
+    }
+
     public static WebElement findElement(By by) {
         System.out.println("----------" + driver);
+        //添加等待时间
+//        waitDriverWait(by, timout, null);
         return driver.findElement(by);
     }
 
@@ -64,7 +73,7 @@ public class BasicObject {
         } else if ("xian".equals(type)) {
             //显示等待
             //等待元素加载到dom中
-//            new WebDriverWait(driver,timeout).until(ExpectedConditions.va);
+            new WebDriverWait(driver,timeout).until(ExpectedConditions.visibilityOfElementLocated(by));
             //等待"按钮"可以被点击
             new WebDriverWait(driver, timeout).until(ExpectedConditions.elementToBeClickable(by));
         } else {
