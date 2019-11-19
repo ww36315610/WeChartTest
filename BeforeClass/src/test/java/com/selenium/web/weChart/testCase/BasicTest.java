@@ -1,4 +1,4 @@
-package com.selenium.web.weChart.test.function;
+package com.selenium.web.weChart.testCase;
 
 import com.selenium.web.weChart.po.AgentPage;
 import org.junit.AfterClass;

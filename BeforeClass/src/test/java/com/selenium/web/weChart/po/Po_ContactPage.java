@@ -18,7 +18,7 @@ public class Po_ContactPage extends BasicObject {
      * 5.微信邀请
      */
     public void clickButton(String clickName) {
-        findElement(By.linkText(clickName), 2000).click();
+        findElement(By.linkText(clickName), 1000).click();
         waitDriverWait(null, 10, "yin");
     }
 
@@ -26,10 +26,10 @@ public class Po_ContactPage extends BasicObject {
      * sendkeys
      * 选择文本框并输入信息
      */
-    public void sendKeys(String clickByType, String sendValue) {
-       WebElement element =  findElement(By.id(clickByType), 2000);
-       element.click();
-       element.sendKeys(sendValue);
+    public void search(String searchByID, String sendValue) {
+        WebElement element = findElement(By.id(searchByID), 1000);
+        element.click();
+        element.sendKeys(sendValue);
     }
 
     /**
@@ -51,26 +51,29 @@ public class Po_ContactPage extends BasicObject {
     /**
      * 删除联系人
      *
+     * @param searchID
      * @param keyword
      * @return
      */
-    public Po_ContactPage delete(String keyword) {
-        findElement(By.id("memberSearchInput"), 500).sendKeys(keyword);
-        findElement(By.linkText("删除"), 0).click();
-        findElement(By.linkText("确认"), 0).click();
-        findElement(By.id("clearMemberSearchInput"), 0).click();
+    public Po_ContactPage delete(String searchID, String keyword) {
+//        findElement(By.id("memberSearchInput"), 500).sendKeys(keyword);
+        search(searchID, keyword);
+        findElement(By.linkText("删除"), 2000).click();
+        findElement(By.linkText("确认"), 1000).click();
+//        findElement(By.id("clearMemberSearchInput"), 0).click();
         return this;
     }
 
     /**
-     * 搜索功能
-     *
-     * @param clickName
-     * @param searchValue
-     * @return
+     * 文件导入
      */
-    public Po_ContactPage search(String clickName, String searchValue) {
-        sendKeys(clickName, searchValue);
-        return this;
+    public void fileUp(String file) {
+        //点击按钮，获取列表选项
+        findElement(By.partialLinkText("批量导入/导出")).click();
+        waitDriverWait(null, 1000, null);
+        clickButton("文件导入");
+        findElement(By.id("js_upload_file_input")).sendKeys(file);
+        findElement(By.linkText("导入")).click();
     }
+
 }

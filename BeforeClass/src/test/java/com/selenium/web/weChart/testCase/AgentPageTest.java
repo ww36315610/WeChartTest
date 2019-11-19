@@ -1,4 +1,4 @@
-package com.selenium.web.weChart.test.function;
+package com.selenium.web.weChart.testCase;
 
 import org.junit.Ignore;
 import org.junit.Test;

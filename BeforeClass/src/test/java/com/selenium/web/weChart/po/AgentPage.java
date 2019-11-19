@@ -23,6 +23,7 @@ public class AgentPage extends BasicObject {
         map.put("客户联系", "//*[@id=\"menu_customer\"]/span");
         map.put("管理工具", "//*[@id=\"menu_manageTools\"]/span");
         map.put("我的企业", "//*[@id=\"menu_profile\"]/span");
+//        menu_manageTools
     }
 
     public void testClick() {
@@ -101,7 +102,9 @@ public class AgentPage extends BasicObject {
      * @return
      */
     public Po_Management getManagement() {
-        findElement(By.xpath(map.get("管理工具").toString()),200).click();
+        findElement(By.xpath(map.get("管理工具").toString()),2000).click();
+//        findElement(By.linkText("管理工具"),200).click();
+        findElement(By.id("menu_manageTools")).click();
         return new Po_Management();
     }
 

@@ -36,9 +36,8 @@ public class BasicObject {
         URL = "https://work.weixin.qq.com/";
         driver = (ChromeDriver) MakeDriver.getDriverByParam("chrome");
         //liunx 启动命令获取driver  driver = System.getProperty("driver");
-        refid = "393314008821495";
-        sid = "JvZOmWG4Uap9Glla7YBqRsV4onPiN_t9O_ITGF0BAAcGRa_QREJZD_QZZDNPc3NP";
-
+        refid = "1215879352779807";
+        sid = "JvZOmWG4Uap9Glla7YBqRqy5BYWDkOrNp7NLtu1Oq0iQPYZFo6CDjK2CZbVkJ185";
     }
 
 
@@ -54,9 +53,8 @@ public class BasicObject {
     }
 
     public static WebElement findElement(By by) {
-        System.out.println("----------" + driver);
-        //添加等待时间
-//        waitDriverWait(by, timout, null);
+        //添加等待时间[thread sleep 1s]
+        waitDriverWait(by, 2000, null);
         return driver.findElement(by);
     }
 
