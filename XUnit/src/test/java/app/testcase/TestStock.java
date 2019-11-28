@@ -20,8 +20,8 @@ public class TestStock {
 
     @BeforeAll
     public static void beforeAll() throws MalformedURLException {
-        App.start();
-        stockPage = App.toStock();
+        App.getInstance().start();
+        stockPage = App.getInstance().toStock();
     }
 
     //测试添加自选股票功能

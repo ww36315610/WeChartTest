@@ -37,9 +37,9 @@ public class TestSteps {
     @Test
     public void parseSteps() throws IOException {
         //启动APP
-        App.start();
+        App.getInstance().start();
         BasicPage basicPage = new BasicPage();
-        basicPage.parseSteps("search");
+//        basicPage.parseSteps("search");
     }
 
 

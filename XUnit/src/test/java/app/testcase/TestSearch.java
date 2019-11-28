@@ -18,8 +18,8 @@ public class TestSearch {
 
     @BeforeAll
     public static void setup() throws IOException {
-        App.start();
-        searchPage = App.toSearch();
+        App.getInstance().start();
+        searchPage = App.getInstance().toSearch();
     }
 
     @Test

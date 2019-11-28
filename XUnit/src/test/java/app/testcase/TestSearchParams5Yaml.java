@@ -28,12 +28,12 @@ public class TestSearchParams5Yaml {
 
     @BeforeAll
     public static void setup() throws MalformedURLException {
-        App.start();
+        App.getInstance().start();
     }
 
     @BeforeEach
     public void before() throws IOException{
-        searchPage = App.toSearch();
+        searchPage = App.getInstance().toSearch();
     }
 
     @Order(3)

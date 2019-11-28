@@ -3,14 +3,9 @@ package com.appnium.app.xueqiu.testcase.homepage;
 
 import com.appnium.app.xueqiu.po.Po_HomePage;
 import com.appnium.app.xueqiu.po.homepage.SearchPage;
-
-import org.junit.After;
 import org.junit.jupiter.api.*;
-
-
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-import sun.tools.jps.Arguments;
 
 import java.util.stream.Stream;
 
@@ -36,15 +31,15 @@ public class SearchPageParamTest5 {
     @Order(3)
     @ParameterizedTest
     @MethodSource("data")
-    public void searchTest(String stock,Double price) {
+    public void searchTest(String stock, Double price) {
         double priceGet = searchPage.search(stock).getPrice();
         assertThat(price, greaterThanOrEqualTo(priceGet));
     }
 
 
-    public static Stream<org.junit.jupiter.params.provider.Arguments> data(){
+    public static Stream<org.junit.jupiter.params.provider.Arguments> data() {
         return Stream.of(
-                arguments("xiaomi",10.00),
+                arguments("xiaomi", 10.00),
                 arguments("alibaba", 200.00),
                 arguments("pdd", 50.00),
                 arguments("jd", 50.00)
@@ -52,7 +47,7 @@ public class SearchPageParamTest5 {
     }
 
     @AfterEach
-    public void after(){
+    public void after() {
         searchPage.cancel();
     }
 }

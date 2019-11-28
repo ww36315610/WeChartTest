@@ -23,9 +23,11 @@ import java.util.concurrent.TimeUnit;
 public class BasicPage {
     public static AndroidDriver driver;
 
-    //输入参数
+    private PageObjectModel model = new PageObjectModel();
+
+    //输入参数[测试步骤参数化]
     public static HashMap<String, Object> params = new HashMap<>();
-    //存放结果
+    //存放结果[结果数据读取]
     public static HashMap<String, Object> result = new HashMap<>();
 
     public static HashMap<String, Object> getParams() {
@@ -47,7 +49,6 @@ public class BasicPage {
      */
     public static WebElement findElement(By by) {
         System.out.println(by);
-
         //todo:递归
         //todo:如果定位得元素是动态变化位置 1.显示等待 2.循环判断3次，看位置是否在最下面
         try {
@@ -60,7 +61,6 @@ public class BasicPage {
 
     public static void click(By by) {
         System.out.println(by);
-
         //todo:递归
         try {
             driver.findElement(by).click();
@@ -89,8 +89,13 @@ public class BasicPage {
 
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         alertBoxs.forEach(alert -> {
-            List<WebElement> ads = driver.findElements(alert);
-
+            List<WebElement> ads = null;
+            try {
+                ads = driver.findElements(alert);
+            } catch (Exception e) {
+                System.err.println("元素定位失败：" + alert + "：返回");
+                return;
+            }
             if (alert.equals(tips)) {
                 System.out.println("^^^^^^^^^^^snb_tip fount^^^^^^^^^^^" + tips);
                 //获取屏幕size
@@ -98,16 +103,10 @@ public class BasicPage {
                 try {
                     if (driver.findElements(tips).size() >= 1) {
                         //点击屏幕的中心位置[此处可以改动]
-                        Thread.sleep(2000);
-                        System.out.println(PointOption.point(size.width / 2, size.height / 2));
-                        try {
-                            new TouchAction(driver).tap(PointOption.point(size.width / 2, size.height / 2)).perform();
-                        }catch (Exception e){
-                            System.err.println("～～～～～～～点击坐标报错～～～～～～～");
-                        }
+                        new TouchAction(driver).tap(PointOption.point(size.width / 2, size.height / 2)).perform();
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    System.err.println("～～～～～～～点击坐标报错～～～～～～～");
                 } finally {
                     System.out.println("【" + alert + "】^^^^^^^^^^^snb_tip clicked^^^^^^^^^^^");
                 }
@@ -120,7 +119,7 @@ public class BasicPage {
 
     //处理弹窗
     private static void handleAlertByPageSource() {
-//todo:xpath匹配,标记 定位
+        //todo:xpath匹配,标记 定位
         String xml = driver.getPageSource();
         List<String> alertBoxs = Lists.newArrayList();
         alertBoxs.add("xxx");
@@ -132,7 +131,6 @@ public class BasicPage {
             }
         });
     }
-
 
     /**
      * 统一获取配置文件的方法封装
@@ -152,16 +150,10 @@ public class BasicPage {
      * @param method
      * @throws IOException
      */
-    public void parseSteps(String method) throws IOException {
-        ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
+    private void parseSteps(String method) {
         //this.getClass()//谁调用生成谁的class路径，
         String yamlPath = "/" + this.getClass().getCanonicalName().replace('.', '/') + ".yaml";
-        System.out.println("#####" + yamlPath);
-
-        TypeReference<HashMap<String, TestCaseSteps>> typeRef = new TypeReference<HashMap<String, TestCaseSteps>>() {
-        };
-        HashMap<String, TestCaseSteps> steps = mapper.readValue(this.getClass().getResourceAsStream(yamlPath), typeRef);
-        parseSteps(steps.get(method));
+        parseSteps(yamlPath, method);
     }
 
     /**
@@ -171,33 +163,34 @@ public class BasicPage {
      * @param method
      * @param path
      */
-    public static void parseSteps(String method, String path) throws IOException {
+    public void parseSteps(String path, String method) {
         ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
-        TypeReference<HashMap<String, TestCaseSteps>> typeRef = new TypeReference<HashMap<String, TestCaseSteps>>() {
-        };
         //把readValue的内容转成typeRef样式
-        HashMap<String, TestCaseSteps> steps = mapper.readValue(BasicPage.class.getResourceAsStream(path), typeRef);
-        parseSteps(steps.get(method));
+        // TypeReference<HashMap<String, TestCaseSteps>> typeRef = new TypeReference<HashMap<String, TestCaseSteps>>() {};
+
+        try {
+            model = mapper.readValue(BasicPage.class.getResourceAsStream(path), PageObjectModel.class);
+            parseSteps(model.methods.get(method));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    private static void parseSteps(TestCaseSteps steps) {
+    private void parseSteps(PageObjectMethod steps) {
         steps.getSteps().forEach(step -> {
             WebElement element = null;
             String id = step.get("id");
             if (id != null) {
                 element = findElement(By.id(id));
-            }
-            String xpath = step.get("xpath");
-            if (xpath != null) {
-                element = findElement(By.xpath(xpath));
-            }
-            String aid = step.get("aid");
-            if (aid != null) {
-                element = findElement(MobileBy.AccessibilityId(aid));
+            } else if (step.get("xpath") != null) {
+                element = findElement(By.xpath(step.get("xpath")));
+            } else if (step.get("aid") != null) {
+                element = findElement(MobileBy.AccessibilityId(step.get("aid")));
+            } else if (step.get("element") != null) {
+                element = findElement(model.elements.get(step.get("element")).getLocator());
             }
             String send = step.get("send");
             //外部参数代替yaml配置里面参数
-
             if (send != null) {
                 for (Map.Entry<String, Object> kv : params.entrySet()) {
                     if (send.contains("${" + kv.getKey() + "}")) {

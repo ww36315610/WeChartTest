@@ -20,11 +20,12 @@ methods:
        dump: price
 
 elements:
-  search_locator:
-    - id: search_input_text
-      os: android
-    - id: search_edit
-      os: ios
-    - xpath: search_input_text
-      os: android
-      version: 4.4
+  search_input_text:
+    element:
+      - id: search_input_text
+        os: android
+      - id: search_edit
+        os: ios
+      - xpath: search_input_text
+        os: android
+        version: 4.4

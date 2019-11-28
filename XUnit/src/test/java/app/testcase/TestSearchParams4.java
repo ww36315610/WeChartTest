@@ -46,12 +46,12 @@ public class TestSearchParams4 {
 
     @BeforeClass
     public static void setup() throws MalformedURLException {
-        App.start();
+        App.getInstance().start();
     }
 
     @Before
     public void before() throws IOException {
-        searchPage = App.toSearch();
+        searchPage = App.getInstance().toSearch();
     }
 
     @Test
