@@ -5,6 +5,10 @@ import org.openqa.selenium.By;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * 对应yaml文件elements模块
+ * 平台切换对象
+ */
 public class PageObjectElement {
     public List<HashMap<String, String>> element;
 
