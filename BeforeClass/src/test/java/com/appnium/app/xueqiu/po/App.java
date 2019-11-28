@@ -13,7 +13,7 @@ public class App extends BasicObject {
      *
      */
     public  Po_HomePage getHomePage(){
-//        findElement(By.id("com.xueqiu.android:id/search_input_text")).sendKeys("alibaba");
+
         return new Po_HomePage();
     }
 

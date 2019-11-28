@@ -1,0 +1,30 @@
+methods:
+  search:
+    steps:
+     - id: search_input_text
+       send: ${keyword}
+     - id: name
+
+  cancel:
+    steps:
+      - id: action_close
+
+  select:
+    steps:
+      - id: follow_btn
+
+  getCurrentPrice:
+    steps:
+     - id: search_input_text
+       get: text
+       dump: price
+
+elements:
+  search_locator:
+    - id: search_input_text
+      os: android
+    - id: search_edit
+      os: ios
+    - xpath: search_input_text
+      os: android
+      version: 4.4
