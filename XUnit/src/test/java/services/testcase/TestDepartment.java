@@ -99,8 +99,9 @@ public class TestDepartment {
             names.forEach(n->{
                 System.out.println("list------"+n);
                 if(n.equals(name)){
-
-                    department.delete(departmentID);
+                    int id = department.list(departmentID).then().extract().body().path("department.find{d -> d.name =='"+ name +"'}.id");
+                    System.out.println("======"+id);
+                    department.delete(id);
                 }
             });
         }

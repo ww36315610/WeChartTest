@@ -1,0 +1,11 @@
+.class
+.checkstyle
+.classpath
+.idea/
+.project
+.settings/
+cif-resttest.iml
+test-output/
+tidb_err0702
+*/target/
+.iml
