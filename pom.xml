@@ -12,6 +12,7 @@
         <module>BeforeClass</module>
         <module>Xunqiu_WeChart_Junit5</module>
         <module>XUnit</module>
+        <module>AutoTest</module>
     </modules>
 
 </project>

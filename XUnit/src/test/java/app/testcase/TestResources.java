@@ -4,11 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
-import org.junit.jupiter.api.TestReporter;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 
 public class TestResources {
     public String name;
@@ -21,7 +19,9 @@ public class TestResources {
         System.out.println(this.getClass().getResource("/"));
         System.out.println(this.getClass().getResource("/app/testcase/TestStock.yaml"));
         try {
+            System.out.println("----");
             System.out.println(FileUtils.readFileToString(new File(this.getClass().getResource("/app/testcase/TestStock.yaml").getPath())));
+            System.out.println("----");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -38,6 +38,7 @@ public class TestResources {
 
     /**
      * 读取json文件
+     * 返回此类的一个对象
      */
     @Test
     public void readJson() throws IOException {
@@ -50,6 +51,7 @@ public class TestResources {
 
     /**
      * 读取yaml文件
+     * 返回object[][]二维数组
      */
     @Test
     public void readYaml() throws IOException {

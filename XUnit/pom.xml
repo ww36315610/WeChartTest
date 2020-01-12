@@ -102,5 +102,11 @@
             <artifactId>rest-assured</artifactId>
             <version>4.1.2</version>
         </dependency>
+        <!-- 模版技术 -->
+        <dependency>
+            <groupId>com.github.spullara.mustache.java</groupId>
+            <artifactId>compiler</artifactId>
+            <version>0.9.6</version>
+        </dependency>
     </dependencies>
 </project>

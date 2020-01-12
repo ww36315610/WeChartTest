@@ -16,19 +16,21 @@ public class Work {
     }
 
     public String getToken() {
-        token =
-                given()
-                        .param("corpid", "wwe2c3250da5791212")
-                        .param("corpsecret", "oE0Sn1Ol822V9jdK3Pzop9N-gFwsqiu2KHB8Oa6ng74")
-                .when()
-                        .log().all()
-                        .get("https://qyapi.weixin.qq.com/cgi-bin/gettoken")
-                .then()
-                        .log().all()
-                        .body("errcode", equalTo(0))
-                .extract()
-                        .body().path("access_token");
-        System.out.println(token);
+        if(token == null) {
+            token =
+                    given()
+                            .param("corpid", "wwe2c3250da5791212")
+                            .param("corpsecret", "oE0Sn1Ol822V9jdK3Pzop9N-gFwsqiu2KHB8Oa6ng74")
+                    .when()
+                            .log().all()
+                            .get("https://qyapi.weixin.qq.com/cgi-bin/gettoken")
+                    .then()
+                            .log().all()
+                            .body("errcode", equalTo(0))
+                    .extract()
+                            .body().path("access_token");
+            System.out.println(token);
+        }
         return token;
     }
 }

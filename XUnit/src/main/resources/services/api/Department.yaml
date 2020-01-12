@@ -1,0 +1,13 @@
+methods:
+  list:
+    steps:
+      - given:
+          - queryParam: access_token
+            send: ${keyword}
+          - queryParam: name
+
+  search:
+    steps:
+      - id: search_input_text
+        send: ${keyword}
+      - id: name

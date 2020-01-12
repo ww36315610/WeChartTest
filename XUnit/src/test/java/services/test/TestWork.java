@@ -5,6 +5,7 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import services.api.BasicAPI;
 
 import java.util.Map;
 
@@ -65,5 +66,23 @@ public class TestWork {
                 .log().all()
                 .body("errcode", equalTo(0));
 
+    }
+
+    public static void main(String[] args) {
+        try {
+            System.out.println("try111");
+            System.out.println(1/0);
+            System.out.println("try222");
+        }catch (Exception e){
+            System.out.println("catch");
+            e.printStackTrace();
+        }
+        System.out.println("---hou---");
+        get();
+    }
+
+    public static void get(){
+        BasicAPI v = new BasicAPI(){};
+        v.mm();
     }
 }

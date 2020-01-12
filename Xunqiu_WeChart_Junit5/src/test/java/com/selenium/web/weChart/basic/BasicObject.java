@@ -36,8 +36,9 @@ public class BasicObject {
         URL = "https://work.weixin.qq.com/";
         driver = (ChromeDriver) MakeDriver.getDriverByParam("chrome");
         //liunx 启动命令获取driver  driver = System.getProperty("driver");
-        refid = "1215879352779807";
-        sid = "JvZOmWG4Uap9Glla7YBqRqy5BYWDkOrNp7NLtu1Oq0iQPYZFo6CDjK2CZbVkJ185";
+        refid = "24367782073311728";
+        sid = "JvZOmWG4Uap9Glla7YBqRon7kl8SJpG_FcM7qPGA98n7pQPHSOKtgxo58rnyuB3h";
+
     }
 
 
